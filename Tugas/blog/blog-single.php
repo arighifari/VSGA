@@ -38,7 +38,24 @@
         $category = $category['id_kategori'];
         $cat_query = "SELECT * FROM tb_kategori WHERE id_kategori='$category'";
         $name_cat = mysqli_query($conn,$cat_query);
-        $name_cats = mysqli_fetch_assoc($name_cat);        
+        $name_cats = mysqli_fetch_assoc($name_cat);
+        
+        $query_comment = "SELECT * FROM tb_komentar WHERE id_post='$id'";
+        $comment = mysqli_query($conn,$query_comment);
+
+        $query_email_comment = "SELECT email FROM tb_komentar WHERE id_post='$id'";
+        $email_comment = mysqli_query($conn,$query_comment);
+        $email_comments = mysqli_fetch_assoc($email_comment);
+        $email_comments = $email_comments['email'];
+
+        $query_user_comment = "SELECT * FROM tb_user WHERE email='$email_comments'";
+        $user_comment = mysqli_query($conn,$query_user_comment);
+        $user_comments = mysqli_fetch_assoc($user_comment);
+
+        $count_query = "SELECT content,COUNT(*) as content FROM tb_komentar WHERE id_post='$id'";
+        $count = mysqli_query($conn,$count_query);
+        $counts = mysqli_fetch_assoc($count);
+
       ?>
     <section class="site-section py-lg">
       <div class="container">
@@ -61,116 +78,43 @@
 
             
             <div class="pt-5">
-              <p>Categories:  <a href="#">Food</a>, <a href="#">Travel</a>  Tags: <a href="#">#manila</a>, <a href="#">#asia</a></p>
+              <p>Categories:  <a href="#"><?= $name_cats['name'] ?></a>  Tags: <a href="#"><?= $result['tag'] ?></a></p>
             </div>
 
 
             <div class="pt-5">
-              <h3 class="mb-5">6 Comments</h3>
+              <h3 class="mb-5"><?= $counts['content'] ?> Comments</h3>
               <ul class="comment-list">
+                <?php while ($comments = mysqli_fetch_assoc($comment)) { ?>
                 <li class="comment">
                   <div class="vcard">
-                    <img src="assets/images/person_1.jpg" alt="Image placeholder">
+                    <img src="<?= $user_comments['foto'] ?>" alt="Image placeholder">
                   </div>
                   <div class="comment-body">
-                    <h3>Jean Doe</h3>
-                    <div class="meta">January 9, 2018 at 2:21pm</div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                    <h3><?= $user_comments['name'] ?></h3>
+                    <div class="meta"><?= $result['date'] ?></div>
+                    <p><?= $comments['content'] ?></p>
                     <p><a href="#" class="reply rounded">Reply</a></p>
                   </div>
                 </li>
-
-                <li class="comment">
-                  <div class="vcard">
-                    <img src="assets/images/person_1.jpg" alt="Image placeholder">
-                  </div>
-                  <div class="comment-body">
-                    <h3>Jean Doe</h3>
-                    <div class="meta">January 9, 2018 at 2:21pm</div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                    <p><a href="#" class="reply rounded">Reply</a></p>
-                  </div>
-
-                  <ul class="children">
-                    <li class="comment">
-                      <div class="vcard">
-                        <img src="assets/images/person_1.jpg" alt="Image placeholder">
-                      </div>
-                      <div class="comment-body">
-                        <h3>Jean Doe</h3>
-                        <div class="meta">January 9, 2018 at 2:21pm</div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                        <p><a href="#" class="reply rounded">Reply</a></p>
-                      </div>
-
-
-                      <ul class="children">
-                        <li class="comment">
-                          <div class="vcard">
-                            <img src="assets/images/person_1.jpg" alt="Image placeholder">
-                          </div>
-                          <div class="comment-body">
-                            <h3>Jean Doe</h3>
-                            <div class="meta">January 9, 2018 at 2:21pm</div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                            <p><a href="#" class="reply rounded">Reply</a></p>
-                          </div>
-
-                            <ul class="children">
-                              <li class="comment">
-                                <div class="vcard">
-                                  <img src="assets/images/person_1.jpg" alt="Image placeholder">
-                                </div>
-                                <div class="comment-body">
-                                  <h3>Jean Doe</h3>
-                                  <div class="meta">January 9, 2018 at 2:21pm</div>
-                                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                  <p><a href="#" class="reply rounded">Reply</a></p>
-                                </div>
-                              </li>
-                            </ul>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-
-                <li class="comment">
-                  <div class="vcard">
-                    <img src="assets/images/person_1.jpg" alt="Image placeholder">
-                  </div>
-                  <div class="comment-body">
-                    <h3>Jean Doe</h3>
-                    <div class="meta">January 9, 2018 at 2:21pm</div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                    <p><a href="#" class="reply rounded">Reply</a></p>
-                  </div>
-                </li>
+                <?php } ?>
               </ul>
               <!-- END comment-list -->
               
               <div class="comment-form-wrap pt-5">
                 <h3 class="mb-5">Leave a comment</h3>
-                <form action="#" class="p-5 bg-light">
-                  <div class="form-group">
-                    <label for="name">Name *</label>
-                    <input type="text" class="form-control" id="name">
-                  </div>
+                <form action="controller/comment_conf.php" method="POST" class="p-5 bg-light">
                   <div class="form-group">
                     <label for="email">Email *</label>
-                    <input type="email" class="form-control" id="email">
+                    <input type="hidden" name="id" class="form-control" id="email" value="<?= $id ?>" readonly>                    
+                    <input type="email" name="email" class="form-control" id="email" value="<?= $_SESSION['id'] ?>" readonly>
                   </div>
                   <div class="form-group">
-                    <label for="website">Website</label>
-                    <input type="url" class="form-control" id="website">
-                  </div>
-
-                  <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
+                    <label for="message">Comment</label>
+                    <textarea name="komentar" id="message" cols="30" rows="10" class="form-control"></textarea>
                   </div>
                   <div class="form-group">
-                    <input type="submit" value="Post Comment" class="btn btn-primary">
+                    <input type="submit" name="submit" value="Post Comment" class="btn btn-primary">
                   </div>
 
                 </form>
@@ -209,7 +153,7 @@
             </div>
             <!-- END sidebar-box -->  
             <div class="sidebar-box">
-              <h3 class="heading">Popular Posts</h3>
+              <h3 class="heading">Latest Posts</h3>
               <div class="post-entry-sidebar">
                 <ul>
                   <li>
@@ -286,57 +230,6 @@
       </div>
     </section>
 
-    <section class="py-5">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <h2 class="mb-3 ">Related Post</h2>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6 col-lg-4">
-            <a href="#" class="a-block sm d-flex align-items-center height-md" style="background-image: url('assets/images/img_2.jpg'); ">
-              <div class="text">
-                <div class="post-meta">
-                  <span class="category">Lifestyle</span>
-                  <span class="mr-2">March 15, 2018 </span> &bullet;
-                  <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-                </div>
-                <h3>There’s a Cool New Way for Men to Wear Socks and Sandals</h3>
-              </div>
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a href="#" class="a-block sm d-flex align-items-center height-md" style="background-image: url('assets/images/img_3.jpg'); ">
-              <div class="text">
-                <div class="post-meta">
-                  <span class="category">Travel</span>
-                  <span class="mr-2">March 15, 2018 </span> &bullet;
-                  <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-                </div>
-                <h3>There’s a Cool New Way for Men to Wear Socks and Sandals</h3>
-              </div>
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a href="#" class="a-block sm d-flex align-items-center height-md" style="background-image: url('assets/images/img_4.jpg'); ">
-              <div class="text">
-                <div class="post-meta">
-                  <span class="category">Food</span>
-                  <span class="mr-2">March 15, 2018 </span> &bullet;
-                  <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-                </div>
-                <h3>There’s a Cool New Way for Men to Wear Socks and Sandals</h3>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-
-
-    </section>
-    <!-- END section -->
-  
     <footer class="site-footer">
         <div class="container">
           <div class="row mb-5">

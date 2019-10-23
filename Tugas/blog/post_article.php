@@ -46,12 +46,12 @@
                 <div class="row">
                   <div class="col-md-12 form-group">
                     <label for="kategori">Kategori</label>
-                    <?php while ($cats = mysqli_fetch_assoc($cat_hasil)) { ?>
                     <select name="kategori" class="custom-select">
                         <option disabled="disabled " selected="selected">Kategori</option>
+                        <?php while ($cats = mysqli_fetch_assoc($cat_hasil)) { ?>
                         <option value="<?= $cats['id_kategori'] ?>"><?= $cats['name'] ?></option>
+                        <?php } ?>
                     </select>
-                    <?php } ?>
                   </div>
                 </div>
                 <div class="row">

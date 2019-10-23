@@ -60,14 +60,14 @@
                 <li class="nav-item">
                   <a class="nav-link active" href="index.php">Home</a>
                 </li>
-                <?php while ($cats = mysqli_fetch_assoc($cat_hasil)) { ?>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="category.php" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
                   <div class="dropdown-menu" aria-labelledby="dropdown05">
+                    <?php while ($cats = mysqli_fetch_assoc($cat_hasil)) { ?>
                     <a class="dropdown-item" href="category.php"><?= $cats['name'] ?></a>
+                    <?php } ?>
                   </div>
                 </li>
-                <?php } ?>
               <?php if(isset($_SESSION['nama'])){ ?>
                 <li class="nav-item">
                   <a class="nav-link" href="post_article.php">Post An Article</a>
