@@ -18,7 +18,7 @@
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="category.php" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hello, <?=$_SESSION['nama']?></a>
                   <div class="dropdown-menu" style="color:black;" aria-labelledby="dropdown05">
-                    <a class="dropdown-item" style="color:black;" href="category.php">Profile</a>
+                    <a class="dropdown-item" style="color:black;" href="admin/index.html">Profile</a>
                     <a class="dropdown-item" style="color:black;" href="controller/logout_conf.php">Logout</a>
                   </div>
                 </li>
@@ -35,7 +35,7 @@
                 <!-- <a href="#"><span class="fa fa-search"></span></a> -->
                 <form action="#" class="search-top-form">
                   <span class="icon fa fa-search"></span>
-                  <input type="text" id="s" placeholder="Type keyword to search...">
+                  <input type="text" id="search" placeholder="Type keyword to search...">
                 </form>
               </div>
             </div>
