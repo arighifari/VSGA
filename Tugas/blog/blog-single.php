@@ -1,4 +1,4 @@
-<!doctype html>
+`<!doctype html>
 <html lang="en">
   <head>
     <title>Colorlib Wordify &mdash; Minimal Blog Template</title>
@@ -21,6 +21,24 @@
     <div class="wrap">
     <?php
         include ('view/header.php') ;
+        include ('config/config.php');
+        $id = $_GET['idpost'];
+        $post = "SELECT * FROM tb_post WHERE id_post='$id'";
+        $posting = mysqli_query($conn,$post);
+        $result = mysqli_fetch_assoc($posting);
+
+        $user = $_SESSION['id'];
+        $user_query = "SELECT * FROM tb_user WHERE email='$user'";
+        $users = mysqli_query($conn,$user_query);
+        $hasil_user = mysqli_fetch_assoc($users);
+
+        $id_cat = "SELECT id_kategori FROM tb_post WHERE id_post='$id'";
+        $cat = mysqli_query($conn,$id_cat);
+        $category = mysqli_fetch_assoc($cat);
+        $category = $category['id_kategori'];
+        $cat_query = "SELECT * FROM tb_kategori WHERE id_kategori='$category'";
+        $name_cat = mysqli_query($conn,$cat_query);
+        $name_cats = mysqli_fetch_assoc($name_cat);        
       ?>
     <section class="site-section py-lg">
       <div class="container">
@@ -28,36 +46,17 @@
         <div class="row blog-entries element-animate">
 
           <div class="col-md-12 col-lg-8 main-content">
-            <img src="assets/images/img_10.jpg" alt="Image" class="img-fluid mb-5">
+            <img src="<?= $result['gambar'] ?>" alt="Image" class="img-fluid mb-5">
              <div class="post-meta">
-                        <span class="author mr-2"><img src="assets/images/person_1.jpg" alt="Colorlib" class="mr-2"> Colorlib</span>&bullet;
-                        <span class="mr-2">March 15, 2018 </span> &bullet;
+                        <span class="author mr-2"><img src="<?= $hasil_user['foto'] ?>" alt="Colorlib" class="mr-2"> <?= $hasil_user['name'] ?></span>&bullet;
+                        <span class="mr-2"><?= $result['date'] ?></span> &bullet;
                         <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
                       </div>
-            <h1 class="mb-4">There’s a Cool New Way for Men to Wear Socks and Sandals</h1>
-            <a class="category mb-5" href="#">Food</a> <a class="category mb-5" href="#">Travel</a>
+            <h1 class="mb-4"><?= $result['title'] ?></h1>
+            <a class="category mb-5" href="#"><?= $name_cats['name'] ?></a>
            
             <div class="post-content-body">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium nam quas inventore, ut iure iste modi eos adipisci ad ea itaque labore earum autem nobis et numquam, minima eius. Nam eius, non unde ut aut sunt eveniet rerum repellendus porro.</p>
-            <p>Sint ab voluptates itaque, ipsum porro qui obcaecati cumque quas sit vel. Voluptatum provident id quis quo. Eveniet maiores perferendis officia veniam est laborum, expedita fuga doloribus natus repellendus dolorem ab similique sint eius cupiditate necessitatibus, magni nesciunt ex eos.</p>
-            <p>Quis eius aspernatur, eaque culpa cumque reiciendis, nobis at earum assumenda similique ut? Aperiam vel aut, ex exercitationem eos consequuntur eaque culpa totam, deserunt, aspernatur quae eveniet hic provident ullam tempora error repudiandae sapiente illum rerum itaque voluptatem. Commodi, sequi.</p>
-            <div class="row mb-5">
-              <div class="col-md-12 mb-4">
-                <img src="assets/images/img_7.jpg" alt="Image placeholder" class="img-fluid">
-              </div>
-              <div class="col-md-6 mb-4">
-                <img src="assets/images/img_9.jpg" alt="Image placeholder" class="img-fluid">
-              </div>
-              <div class="col-md-6 mb-4">
-                <img src="assets/images/img_11.jpg" alt="Image placeholder" class="img-fluid">
-              </div>
-            </div>
-            <p>Quibusdam autem, quas molestias recusandae aperiam molestiae modi qui ipsam vel. Placeat tenetur veritatis tempore quos impedit dicta, error autem, quae sint inventore ipsa quidem. Quo voluptate quisquam reiciendis, minus, animi minima eum officia doloremque repellat eos, odio doloribus cum.</p>
-            <p>Temporibus quo dolore veritatis doloribus delectus dolores perspiciatis recusandae ducimus, nisi quod, incidunt ut quaerat, magnam cupiditate. Aut, laboriosam magnam, nobis dolore fugiat impedit necessitatibus nisi cupiditate, quas repellat itaque molestias sit libero voluptas eveniet omnis illo ullam dolorem minima.</p>
-            <p>Porro amet accusantium libero fugit totam, deserunt ipsa, dolorem, vero expedita illo similique saepe nisi deleniti. Cumque, laboriosam, porro! Facilis voluptatem sequi nulla quidem, provident eius quos pariatur maxime sapiente illo nostrum quibusdam aliquid fugiat! Earum quod fuga id officia.</p>
-            <p>Illo magnam at dolore ad enim fugiat ut maxime facilis autem, nulla cumque quis commodi eos nisi unde soluta, ipsa eius aspernatur sint atque! Nihil, eveniet illo ea, mollitia fuga accusamus dolor dolorem perspiciatis rerum hic, consectetur error rem aspernatur!</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus magni explicabo id molestiae, minima quas assumenda consectetur, nobis neque rem, incidunt quam tempore perferendis provident obcaecati sapiente, animi vel expedita omnis quae ipsa! Obcaecati eligendi sed odio labore vero reiciendis facere accusamus molestias eaque impedit, consequuntur quae fuga vitae fugit?</p>
+              <p style="text-align: justify"><?= $result['content'] ?></p>
             </div>
 
             
@@ -452,4 +451,4 @@
 
     <script src="assets/js/main.js"></script>
   </body>
-</html>
+</html>`
