@@ -21,66 +21,30 @@
   <body>
     <div class="wrap">
       <?php
-        include ('view/header.php');
-        include ('config/config.php');
-
-        $cat = "SELECT * FROM tb_kategori";
-        $cat_hasil = mysqli_query($conn,$cat);
+        include ('view/header.php') ;
       ?>
     <section class="site-section">
       <div class="container">
         <div class="row mb-4">
           <div class="col-md-6">
-            <h1>Post An Article</h1>
+            <h1>Post A Category</h1>
           </div>
         </div>
         <div class="row blog-entries">
           <div class="col-md-12 col-lg-8 main-content">
-            <form action="controller/article_conf.php" method="post" enctype="multipart/form-data">
+            <form action="controller/kategori_conf.php" method="post" enctype="multipart/form-data">
                 <div class="row">
-                  <div class="col-md-12 form-group">
-                    <label for="name">Judul Artikel</label>
-                    <input type="text" id="name" name="judul" class="form-control ">
-                  </div>
+                <div class="col-md-12 form-group">
+                    <label for="name">Kategori</label>
+                    <input type="text" name="kategori" id="name" class="form-control ">
+                </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-12 form-group">
-                    <label for="kategori">Kategori</label>
-                    <?php while ($cats = mysqli_fetch_assoc($cat_hasil)) { ?>
-                    <select name="kategori" class="custom-select">
-                        <option disabled="disabled " selected="selected">Kategori</option>
-                        <option value="<?= $cats['id_kategori'] ?>"><?= $cats['name'] ?></option>
-                    </select>
-                    <?php } ?>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 form-group">
-                    <label for="message">Isi Artikel</label>
-                    <textarea name="isi" id="message" class="form-control " cols="30" rows="8"></textarea>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 form-group">
-                    <label for="foto">foto</label>
-                    <div class="custom-file mb-3">
-                    <input type="file" name="foto" class="custom-file-input" id="customFile">
-                    <label class="custom-file-label" for="customFile">Choose file</label>
-                  </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 form-group">
-                    <label for="tag">Tag</label>
-                    <input type="text" id="name" name="tag" class="form-control ">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 form-group">
+                <div class="col-md-6 form-group">
                     <input type="submit" name="submit" value="Submit" class="btn btn-primary">
-                  </div>
                 </div>
-              </form>
+                </div>
+            </form>
           </div>
 
           <!-- END main-content -->
